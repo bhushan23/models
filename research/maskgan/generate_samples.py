@@ -162,6 +162,7 @@ def generate_samples(hparams, data, id_to_word, log_dir, output_file):
     model = train_mask_gan.create_MaskGAN(hparams, is_training)
 
     ## Retrieve the initial savers.
+    print('PARAMS: ', hparams)
     init_savers = model_utils.retrieve_init_savers(hparams)
 
     ## Initial saver function to supervisor.
@@ -171,7 +172,7 @@ def generate_samples(hparams, data, id_to_word, log_dir, output_file):
 
     # Create the supervisor.  It will take care of initialization, summaries,
     # checkpoints, and recovery.
-    sv = tf.Supervisor(
+    sv = tf.train.Supervisor(
         logdir=log_dir,
         is_chief=is_chief,
         saver=model.saver,
